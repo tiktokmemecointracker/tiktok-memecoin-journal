@@ -1,173 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TikTok Meme Coin Tracker</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; background: #f0f4f8; }
-  h1 { text-align: center; }
-  label { display: block; margin-top: 1rem; font-weight: bold; }
-  input[type=text], select, textarea {
-    width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
-  }
-  textarea { resize: vertical; min-height: 80px; }
-  button {
-    margin-top: 1.5rem; background: #6a5acd; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 5px;
-    cursor: pointer;
-  }
-  button:hover { background: #5943a0; }
-  table { width: 100%; margin-top: 2rem; border-collapse: collapse; }
-  th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
-  th { background: #6a5acd; color: white; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MemeCoin Vault</title>
+  <style>
+    body {
+      background-color: #0e0e1a;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #79f2ff;
+      text-shadow: 0 0 10px #79f2ff;
+    }
+    form {
+      background-color: #1a1a2e;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.3);
+      width: 100%;
+      max-width: 700px;
+    }
+    label {
+      display: block;
+      margin: 0.75rem 0 0.25rem;
+      color: #a6f4e6;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #2a2a40;
+      color: #ffffff;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #00ffa2;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #00cc82;
+    }
+    table {
+      width: 100%;
+      max-width: 1000px;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    th {
+      background-color: #222242;
+      color: #79f2ff;
+    }
+    td a {
+      color: #00ffa2;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+  <h1>MemeCoin Vault</h1>
+  <form id="memeForm">
+    <label for="name">Coin Name</label>
+    <input type="text" id="name" required />
 
-<h1>TikTok Meme Coin Tracker</h1>
+    <label for="contract">Contract Address</label>
+    <input type="text" id="contract" required />
 
-<form id="coinForm">
-  <label for="coinName">Coin Name</label>
-  <input type="text" id="coinName" required placeholder="$whiteski" />
+    <label for="type">Type</label>
+    <select id="type">
+      <option value="Meme">Meme</option>
+      <option value="Trend">Trend</option>
+      <option value="Parody">Parody</option>
+      <option value="Other">Other</option>
+    </select>
 
-  <label for="contract">Contract Address</label>
-  <input type="text" id="contract" required placeholder="5fMepsdhyyeMkmJNJNfpym5sTU1dLaVXW54NPGs5pump" />
+    <label for="trend">Trend Strength</label>
+    <select id="trend">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
 
-  <label for="type">Type</label>
-  <select id="type" required>
-    <option value="">-- Select Type --</option>
-    <option>Meme</option>
-    <option>Trend</option>
-    <option>Utility</option>
-    <option>Community</option>
-    <option>Other</option>
-  </select>
+    <label for="hype">Hype Level</label>
+    <select id="hype">
+      <option value="Low">Low</option>
+      <option value="Mid">Mid</option>
+      <option value="High">High</option>
+    </select>
 
-  <label for="trendStrength">Trend Strength</label>
-  <select id="trendStrength" required>
-    <option value="">-- Select Trend Strength --</option>
-    <option>High</option>
-    <option>Medium</option>
-    <option>Low</option>
-  </select>
+    <label for="narrative">Narrative</label>
+    <textarea id="narrative" rows="2"></textarea>
 
-  <label for="memePower">Meme Power</label>
-  <select id="memePower" required>
-    <option value="">-- Select Meme Power --</option>
-    <option>Strong</option>
-    <option>Mid</option>
-    <option>Weak</option>
-  </select>
+    <label for="momentum">Momentum</label>
+    <textarea id="momentum" rows="2"></textarea>
 
-  <label for="narrative">Narrative</label>
-  <textarea id="narrative" placeholder="Brief description or meme hook" required></textarea>
+    <label for="connection">Connections</label>
+    <textarea id="connection" rows="2"></textarea>
 
-  <label for="lifespan">Lifespan Potential</label>
-  <select id="lifespan" required>
-    <option value="">-- Select Lifespan --</option>
-    <option>Flash</option>
-    <option>Slow Burner</option>
-    <option>Cult</option>
-  </select>
+    <button type="submit">Add Entry</button>
+    <button type="button" onclick="exportCSV()">Export to CSV</button>
+  </form>
 
-  <label for="notes">Notes (optional)</label>
-  <textarea id="notes" placeholder="Additional info or context"></textarea>
+  <table id="logTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contract</th>
+        <th>Type</th>
+        <th>Trend</th>
+        <th>Hype</th>
+        <th>Narrative</th>
+        <th>Momentum</th>
+        <th>Connections</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-  <button type="submit">Submit Entry</button>
-</form>
+  <script>
+    const form = document.getElementById('memeForm');
+    const tableBody = document.querySelector('#logTable tbody');
 
-<table id="entriesTable" style="display:none;">
-  <thead>
-    <tr>
-      <th>Coin Name</th>
-      <th>Contract</th>
-      <th>Type</th>
-      <th>Trend Strength</th>
-      <th>Meme Power</th>
-      <th>Narrative</th>
-      <th>Lifespan</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
-
-<button id="downloadCsv" style="display:none; margin-top: 1rem;">Download CSV</button>
-
-<script>
-  const form = document.getElementById('coinForm');
-  const table = document.getElementById('entriesTable');
-  const tbody = table.querySelector('tbody');
-  const downloadBtn = document.getElementById('downloadCsv');
-  let entries = [];
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const entry = {
-      coinName: form.coinName.value.trim(),
-      contract: form.contract.value.trim(),
-      type: form.type.value,
-      trendStrength: form.trendStrength.value,
-      memePower: form.memePower.value,
-      narrative: form.narrative.value.trim(),
-      lifespan: form.lifespan.value,
-      notes: form.notes.value.trim()
+    const saveToLocalStorage = () => {
+      const rows = Array.from(tableBody.children).map(row => Array.from(row.children).map(td => td.innerText));
+      localStorage.setItem('memeData', JSON.stringify(rows));
     };
 
-    entries.push(entry);
-    addEntryToTable(entry);
-    form.reset();
-    form.coinName.focus();
-    table.style.display = 'table';
-    downloadBtn.style.display = 'inline-block';
-  });
+    const loadFromLocalStorage = () => {
+      const data = JSON.parse(localStorage.getItem('memeData')) || [];
+      data.forEach(entry => addToTable(entry));
+    };
 
-  function addEntryToTable(entry) {
-    const row = document.createElement('tr');
+    const addToTable = (data) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${data[0]}</td>
+        <td><a href="https://axiom.trade/meme/${data[1]}" target="_blank">${data[1]}</a></td>
+        <td>${data[2]}</td>
+        <td>${data[3]}</td>
+        <td>${data[4]}</td>
+        <td>${data[5]}</td>
+        <td>${data[6]}</td>
+        <td>${data[7]}</td>
+      `;
+      tableBody.appendChild(row);
+    };
 
-    row.innerHTML = `
-      <td>${entry.coinName}</td>
-      <td><a href="https://axiom.trade/meme/${entry.contract}" target="_blank">${entry.contract}</a></td>
-      <td>${entry.type}</td>
-      <td>${entry.trendStrength}</td>
-      <td>${entry.memePower}</td>
-      <td>${entry.narrative}</td>
-      <td>${entry.lifespan}</td>
-      <td>${entry.notes}</td>
-    `;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    tbody.appendChild(row);
-  }
+      const data = [
+        form.name.value,
+        form.contract.value,
+        form.type.value,
+        form.trend.value,
+        form.hype.value,
+        form.narrative.value,
+        form.momentum.value,
+        form.connection.value,
+      ];
 
-  downloadBtn.addEventListener('click', () => {
-    if (!entries.length) return alert("No entries to download!");
+      addToTable(data);
+      saveToLocalStorage();
+      form.reset();
+    });
 
-    const csvRows = [];
-    const headers = Object.keys(entries[0]);
-    csvRows.push(headers.join(','));
-
-    for (const row of entries) {
-      const values = headers.map(header => {
-        const escaped = ('' + row[header]).replace(/"/g, '""');
-        return `"${escaped}"`;
-      });
-      csvRows.push(values.join(','));
+    function exportCSV() {
+      const rows = [
+        ['Name', 'Contract', 'Type', 'Trend', 'Hype', 'Narrative', 'Momentum', 'Connections'],
+        ...Array.from(tableBody.children).map(row => Array.from(row.children).map(cell => cell.innerText))
+      ];
+      const csv = rows.map(row => row.join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'memecoin_log.csv';
+      a.click();
     }
 
-    const csvString = csvRows.join('\n');
-    const blob = new Blob([csvString], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', 'TikTok_Memecoin_Entries.csv');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  });
-</script>
-
+    loadFromLocalStorage();
+  </script>
 </body>
 </html>
