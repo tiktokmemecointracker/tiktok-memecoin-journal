@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TikTok Meme Coin Tracker</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; background: #f0f4f8; }
+  h1 { text-align: center; }
+  label { display: block; margin-top: 1rem; font-weight: bold; }
+  input[type=text], select, textarea {
+    width: 100%; padding: 0.5rem; margin-top: 0.25rem; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  button {
+    margin-top: 1.5rem; background: #6a5acd; color: white; border: none; padding: 0.75rem 1.5rem; font-size: 1rem; border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover { background: #5943a0; }
+  table { width: 100%; margin-top: 2rem; border-collapse: collapse; }
+  th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+  th { background: #6a5acd; color: white; }
+</style>
+</head>
+<body>
+
+<h1>TikTok Meme Coin Tracker</h1>
+
+<form id="coinForm">
+  <label for="coinName">Coin Name</label>
+  <input type="text" id="coinName" required placeholder="$whiteski" />
+
+  <label for="contract">Contract Address</label>
+  <input type="text" id="contract" required placeholder="5fMepsdhyyeMkmJNJNfpym5sTU1dLaVXW54NPGs5pump" />
+
+  <label for="type">Type</label>
+  <select id="type" required>
+    <option value="">-- Select Type --</option>
+    <option>Meme</option>
+    <option>Trend</option>
+    <option>Utility</option>
+    <option>Community</option>
+    <option>Other</option>
+  </select>
+
+  <label for="trendStrength">Trend Strength</label>
+  <select id="trendStrength" required>
+    <option value="">-- Select Trend Strength --</option>
+    <option>High</option>
+    <option>Medium</option>
+    <option>Low</option>
+  </select>
+
+  <label for="memePower">Meme Power</label>
+  <select id="memePower" required>
+    <option value="">-- Select Meme Power --</option>
+    <option>Strong</option>
+    <option>Mid</option>
+    <option>Weak</option>
+  </select>
+
+  <label for="narrative">Narrative</label>
+  <textarea id="narrative" placeholder="Brief description or meme hook" required></textarea>
+
+  <label for="lifespan">Lifespan Potential</label>
+  <select id="lifespan" required>
+    <option value="">-- Select Lifespan --</option>
+    <option>Flash</option>
+    <option>Slow Burner</option>
+    <option>Cult</option>
+  </select>
+
+  <label for="notes">Notes (optional)</label>
+  <textarea id="notes" placeholder="Additional info or context"></textarea>
+
+  <button type="submit">Submit Entry</button>
+</form>
+
+<table id="entriesTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>Coin Name</th>
+      <th>Contract</th>
+      <th>Type</th>
+      <th>Trend Strength</th>
+      <th>Meme Power</th>
+      <th>Narrative</th>
+      <th>Lifespan</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<button id="downloadCsv" style="display:none; margin-top: 1rem;">Download CSV</button>
+
+<script>
+  const form = document.getElementById('coinForm');
+  const table = document.getElementById('entriesTable');
+  const tbody = table.querySelector('tbody');
+  const downloadBtn = document.getElementById('downloadCsv');
+  let entries = [];
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const entry = {
+      coinName: form.coinName.value.trim(),
+      contract: form.contract.value.trim(),
+      type: form.type.value,
+      trendStrength: form.trendStrength.value,
+      memePower: form.memePower.value,
+      narrative: form.narrative.value.trim(),
+      lifespan: form.lifespan.value,
+      notes: form.notes.value.trim()
+    };
+
+    entries.push(entry);
+    addEntryToTable(entry);
+    form.reset();
+    form.coinName.focus();
+    table.style.display = 'table';
+    downloadBtn.style.display = 'inline-block';
+  });
+
+  function addEntryToTable(entry) {
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${entry.coinName}</td>
+      <td><a href="https://axiom.trade/meme/${entry.contract}" target="_blank">${entry.contract}</a></td>
+      <td>${entry.type}</td>
+      <td>${entry.trendStrength}</td>
+      <td>${entry.memePower}</td>
+      <td>${entry.narrative}</td>
+      <td>${entry.lifespan}</td>
+      <td>${entry.notes}</td>
+    `;
+
+    tbody.appendChild(row);
+  }
+
+  downloadBtn.addEventListener('click', () => {
+    if (!entries.length) return alert("No entries to download!");
+
+    const csvRows = [];
+    const headers = Object.keys(entries[0]);
+    csvRows.push(headers.join(','));
+
+    for (const row of entries) {
+      const values = headers.map(header => {
+        const escaped = ('' + row[header]).replace(/"/g, '""');
+        return `"${escaped}"`;
+      });
+      csvRows.push(values.join(','));
+    }
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'TikTok_Memecoin_Entries.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+</script>
+
+</body>
+</html>
